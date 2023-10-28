@@ -9,6 +9,7 @@ RIGHT = 0
 
 class Snake:
     def __init__(self):
+        self.speed = SPEED
         self.segments = []
         self.create_snake()
         self.head = self.segments[0]
@@ -33,7 +34,7 @@ class Snake:
             new_y = self.segments[seg_num - 1].ycor()
             self.segments[seg_num].goto(new_x, new_y)
 
-        self.head.forward(SPEED)
+        self.head.forward(self.speed)
 
     def up(self):
         if self.head.heading() != DOWN:
@@ -50,3 +51,14 @@ class Snake:
     def right(self):
         if self.head.heading() != LEFT:
             self.head.setheading(RIGHT)
+
+    def increase_speed(self):
+        self.speed += 1
+
+    def reset(self):
+        for segment in self.segments:
+            segment.goto(1000, 1000)
+        self.segments.clear()
+        self.speed = SPEED
+        self.create_snake()
+        self.head = self.segments[0]
